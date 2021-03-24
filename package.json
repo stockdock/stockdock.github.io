@@ -8,7 +8,8 @@
     "deploy": "hexo deploy",
     "server": "hexo server",
     "dev": "postcss ./style.css -o ./source/css/style.css",
-    "prod": "NODE_ENV=production postcss ./style.css -o ./public/css/style.css"
+    "prod": "NODE_ENV=production postcss ./style.css -o ./public/css/style.css",
+    "push" : "git subtree push --prefix public origin gh-pages"
   },
   "hexo": {
     "version": "5.3.0"
