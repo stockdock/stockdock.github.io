@@ -1,0 +1,23 @@
+.loader {
+  width: 4px;
+  height: 24px;
+  border-radius: 2px;
+  background: white;
+  animation : loading 0.8s infinite;
+}
+
+.h24{
+   height: 24px; 
+}
+
+@keyframes loading {
+  0% {
+    height: 4px;
+  }
+  50% {
+    height: 24px;
+  }
+  100% {
+    height: 4px;
+  }
+}
