@@ -591,6 +591,11 @@ img {
   color: rgba(96, 165, 250, var(--tw-text-opacity));
 }
 
+.text-blue-500 {
+  --tw-text-opacity: 1;
+  color: rgba(59, 130, 246, var(--tw-text-opacity));
+}
+
 .text-blue-600 {
   --tw-text-opacity: 1;
   color: rgba(37, 99, 235, var(--tw-text-opacity));
@@ -599,6 +604,10 @@ img {
 .text-pink-500 {
   --tw-text-opacity: 1;
   color: rgba(236, 72, 153, var(--tw-text-opacity));
+}
+
+.w-10 {
+  width: 2.5rem;
 }
 
 .w-48 {
