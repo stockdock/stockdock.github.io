@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     awake();
     let name = document.getElementById("name");
     let email = document.getElementById("email");
+    let phone = document.getElementById("phone");
     let button = document.getElementById("warningbtn");
 
     button.addEventListener("click", (event) => {
@@ -15,10 +16,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
     document.getElementById("send").addEventListener("click", (event) => {
       if (enabled) {
-        if (validateEmail(email.value)) {
-          sendata(name.value, email.value, enabled);
+        phone.value = phone.value.replace(/^0+/, "");
+        if (validatePhone(phone.value)) {
+          if (validateEmail(email.value)) {
+            sendata(name.value, email.value, phone.value);
+          } else {
+            showwarning("invalid Email");
+          }
         } else {
-          showwarning();
+          showwarning("Invalid Phone");
         }
       }
     });
@@ -40,13 +46,18 @@ function validateEmail(email) {
   return re.test(String(email).toLowerCase());
 }
 
+function validatePhone(phone) {
+  const re = /^\d{10}$/;
+  return re.test(String(phone));
+}
+
 function showwarning(text) {
   let container = document.getElementById("warningcontainer");
   let warinig = document.getElementById("warning");
   if (text) {
-    warinig.text = text;
+    warinig.innerText = text;
   } else {
-    warinig.text = "Invalid Email";
+    warinig.innerText = "Something went wrong";
   }
   if (container.classList.contains("hidden")) {
     container.classList.toggle("hidden");
@@ -58,7 +69,7 @@ function showwarning(text) {
   }
 }
 
-function sendata(name, email) {
+function sendata(name, email, phone) {
   enabled = false;
   document.getElementById("send").classList.toggle("cursor-pointer");
   let text = document.querySelector(".loadertext");
@@ -71,7 +82,7 @@ function sendata(name, email) {
     delay += 0.1;
   });
 
-  fetch("https://stockdock.glitch.me/", {
+  fetch("https://stockdock.glitch.me/new", {
     method: "post",
     headers: {
       "Content-type": "application/json; charset=UTF-8",
@@ -80,12 +91,14 @@ function sendata(name, email) {
     body: JSON.stringify({
       name: name,
       email: email,
+      phone: phone,
     }),
   })
     .then((response) => {
       if (response.status == 201) {
         document.getElementById("name").value = "";
         document.getElementById("email").value = "";
+        document.getElementById("phone").value = "";
         text.classList.toggle("hidden");
         loader.forEach((element) => {
           element.classList.toggle("hidden");
@@ -100,7 +113,15 @@ function sendata(name, email) {
         });
         document.getElementById("send").classList.toggle("cursor-pointer");
         enabled = true;
-        showwarning();
+        showwarning("invalid Phone");
+      } else if (response.status == 401) {
+        text.classList.toggle("hidden");
+        loader.forEach((element) => {
+          element.classList.toggle("hidden");
+        });
+        document.getElementById("send").classList.toggle("cursor-pointer");
+        enabled = true;
+        showwarning("invalid Email");
       } else {
         text.classList.toggle("hidden");
         loader.forEach((element) => {
@@ -113,6 +134,7 @@ function sendata(name, email) {
     })
     .catch((err) => {
       document.getElementById("name").value = "";
+      document.getElementById("phone").value = "";
       document.getElementById("email").value = "";
       text.classList.toggle("hidden");
       loader.forEach((element) => {
