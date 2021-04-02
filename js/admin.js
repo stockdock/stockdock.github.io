@@ -1,1 +1,81 @@
-var enabled=!0;function awake(){fetch("https://stockdock.glitch.me/awake").then((e=>{})).catch((e=>{}))}function showwarning(e){let n=document.getElementById("warningcontainer"),t=document.getElementById("warning");t.innerText=e||"Something went wrong",n.classList.contains("hidden")&&(n.classList.toggle("hidden"),setTimeout((()=>{n.classList.contains("hidden")||n.classList.toggle("hidden")}),3e3))}document.addEventListener("DOMContentLoaded",(e=>{awake();let n=document.getElementById("id"),t=document.getElementById("pass");document.getElementById("warningbtn").addEventListener("click",(e=>{let n=document.getElementById("warningcontainer");n.classList.contains("hidden")||n.classList.toggle("hidden")})),document.getElementById("send").addEventListener("click",(e=>{if(enabled)new Vue({el:"#main",data:{regs:[]},mounted:function(){fetch("https://stockdock.glitch.me/admin/"+n.value+"/"+t.value).then((e=>e.json())).then((e=>{this.regs=e})).catch((e=>{showwarning("invalid id pass"),setTimeout((()=>{window.location.reload()}),200)}))},template:'\n            <div class="p-5 w-full md:w-1/2 md:mx-auto space-y-5">\n              <div v-for="reg , index in regs" class="flex items-center bg-gray-100 rounded-md">\n                <div class="m-2">{{ index }}</div>\n                <div class="flex-1 m-1">\n                  <p><span class="font-bold">Name</span> : {{ reg.name.toString() }} </p>\n                  <p><span class="font-bold">Email</span> : {{ reg.email.toString() }} </p>\n                  <p><span class="font-bold">Number</span> : {{ reg.phone.toString() }} </p>\n                </div>\n              </div>\n            </div>\n          '})}))}));
+var enabled = true;
+
+document.addEventListener("DOMContentLoaded", (event) => {
+    awake();
+    let id = document.getElementById("id");
+    let pass = document.getElementById("pass");
+    let button = document.getElementById("warningbtn");
+
+    button.addEventListener("click", (event) => {
+      let container = document.getElementById("warningcontainer");
+      if (!container.classList.contains("hidden")) {
+        container.classList.toggle("hidden");
+      }
+    });
+
+    document.getElementById("send").addEventListener("click", (event) => {
+      if (enabled) {
+        var main = new Vue({
+          el: "#main",
+          data: {
+            regs: [],
+          },
+          mounted: function () {
+            fetch(
+              "https://stockdock.glitch.me/admin/" + id.value + "/" + pass.value
+            )
+              .then((response) => response.json())
+              .then((data) => {
+                this.regs = data;
+              })
+              .catch((err) => {
+                showwarning("invalid id pass");
+                setTimeout(() => {
+                  window.location.reload();
+                }, 200);
+              });
+          },
+          template: `
+            <div class="p-5 w-full md:w-1/2 md:mx-auto space-y-5">
+              <div v-for="reg , index in regs" class="flex items-center bg-gray-100 rounded-md">
+                <div class="m-2">{{ index }}</div>
+                <div class="flex-1 m-1">
+                  <p><span class="font-bold">Name</span> : {{ reg.name.toString() }} </p>
+                  <p><span class="font-bold">Email</span> : {{ reg.email.toString() }} </p>
+                  <p><span class="font-bold">Number</span> : {{ reg.phone.toString() }} </p>
+                </div>
+              </div>
+            </div>
+          `,
+        });
+      }
+    });
+});
+
+function awake() {
+  fetch("https://stockdock.glitch.me/awake")
+    .then((response) => {
+      // console.log(response);
+    })
+    .catch((err) => {
+      // console.log(err);
+    });
+}
+
+function showwarning(text) {
+  let container = document.getElementById("warningcontainer");
+  let warinig = document.getElementById("warning");
+  if (text) {
+    warinig.innerText = text;
+  } else {
+    warinig.innerText = "Something went wrong";
+  }
+  if (container.classList.contains("hidden")) {
+    container.classList.toggle("hidden");
+    setTimeout(() => {
+      if (!container.classList.contains("hidden")) {
+        container.classList.toggle("hidden");
+      }
+    }, 3000);
+  }
+}
