@@ -1,0 +1,37 @@
+---
+{ "title": "admin" }
+---
+
+<div id="main" class="md:bg-gray-100 rounded-xl md:mx-auto w-full overflow-hidden md:w-1/2 p-5 md:p-0">
+  <div class="p-5 space-y-10 flex flex-col justify-center">
+    <div class="space-y-3">
+      <div class="w-full">
+        <input id="id" type="text" placeholder="Id" class="p-3 rounded-lg w-full border outline-none">
+      </div>
+      <div class="w-full">
+        <input id="pass" type="password" placeholder="Password" class="p-3 rounded-lg w-full border outline-none">
+      </div>
+      <div class="w-full">
+        <div id="send" class="p-3 mb-14 md:mb-0 space-x-1 cursor-pointer rounded-lg w-full font-bold text-white border outline-none shadow bg-gradient-to-r from-purple-600 to-blue-500 flex justify-center">
+          <div class="space-x-1 h24 flex justify-center w-full items-center">
+            <span class="loadertext">Continue</span>
+            <span class="hidden loader"></span>
+            <span class="hidden loader"></span>
+            <span class="hidden loader"></span>
+            <span class="hidden loader"></span>
+            <span class="hidden loader"></span>
+            <span class="hidden loader"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="fixed bottom-3 flex right-5">
+  <div id="warningcontainer" class="px-5 py-2 hidden rounded-md flex w-48 bg-black bg-opacity-80">
+    <div id="warning" class="flex-1 text-white"></div>
+    <button id="warningbtn" class="text-white focus:outline-none">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
