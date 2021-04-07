@@ -17,8 +17,12 @@
     <%- body %>
   </body>
 
+
   <% if (page.title == "admin") { %>
   <script src="js/admin.js"></script>
+  <% } else if (page.title == "email") { %>
+  <script src="js/smtp.js"></script>
+  <script src="js/email.js"></script>
   <% } else { %>
   <script src="js/main.js"></script>
   <% } %>
