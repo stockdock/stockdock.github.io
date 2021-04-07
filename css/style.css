@@ -206,6 +206,7 @@ Add the correct display in Chrome and Safari.
  */
 
 
+h2,
 p {
   margin: 0;
 }
@@ -318,6 +319,12 @@ input::placeholder {
 
 button {
   cursor: pointer;
+}
+
+
+h2 {
+  font-size: inherit;
+  font-weight: inherit;
 }
 
 /**
@@ -512,6 +519,10 @@ img {
 
 .m-2 {
   margin: 0.5rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
 }
 
 .mb-14 {
